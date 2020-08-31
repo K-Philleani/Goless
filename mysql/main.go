@@ -111,6 +111,28 @@ func deleteRow(id int) {
 	fmt.Printf("删除了:%d行数据\n", count)
 }
 
+// 预处理
+func prepareRow() {
+	sqlStr := `insert into student (name, class, sex) values(?, ?, ?)`
+	stmt, err := db.Prepare(sqlStr)
+	if err != nil {
+		log.Println("预处理失败, err:", err)
+		return
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec("王木", "计算机一班", "男")
+	if err != nil {
+		log.Println("数据插入失败,err:", err)
+		return
+	}
+	_, err = stmt.Exec("孙天宇", "计算机一班", "nan")
+	if err != nil {
+		log.Println("数据插入失败, err:", err)
+		return
+	}
+}
+
+
 func main() {
 	err := initDB()
 	if err != nil {
@@ -120,7 +142,8 @@ func main() {
 	fmt.Println("数据库连接成功")
 	//queryRow(1)
 	//insertRow("刘环宇", "计算机一班", "男")
-	//updateRow("女", 2)
-	deleteRow(2)
+	updateRow("nan", 7)
+	//deleteRow(2)
+	//prepareRow()
 	queryMultiRows(0)
 }
