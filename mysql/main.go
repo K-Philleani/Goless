@@ -77,6 +77,40 @@ func insertRow(name, class, sex string) {
 	fmt.Printf("插入数据id:%d\n", count)
 }
 
+// 更新数据
+func updateRow(sex string, id int) {
+	sqlStr := `update student set sex =? where id = ?`
+	row, err := db.Exec(sqlStr, sex, id)
+	if err != nil {
+		log.Println("更新数据失败, err:", err)
+		return
+	}
+
+	count, err := row.RowsAffected()
+	if err != nil {
+		log.Println("数据结果失败, err:", err)
+		return
+	}
+	fmt.Printf("更新了%d行数据\n", count)
+}
+
+// 删除数据
+
+func deleteRow(id int) {
+	sqlStr := `delete from student where id =?`
+	row, err := db.Exec(sqlStr, id)
+	if err != nil {
+		log.Println("删除数据失败, err:", err)
+		return
+	}
+	count, err := row.RowsAffected()
+	if err != nil {
+		log.Println("数据结果失败, err:", err)
+		return
+	}
+	fmt.Printf("删除了:%d行数据\n", count)
+}
+
 func main() {
 	err := initDB()
 	if err != nil {
@@ -85,6 +119,8 @@ func main() {
 	}
 	fmt.Println("数据库连接成功")
 	//queryRow(1)
-	insertRow("刘环宇", "计算机一班", "男")
+	//insertRow("刘环宇", "计算机一班", "男")
+	//updateRow("女", 2)
+	deleteRow(2)
 	queryMultiRows(0)
 }
