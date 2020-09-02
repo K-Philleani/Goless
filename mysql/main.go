@@ -132,6 +132,41 @@ func prepareRow() {
 	}
 }
 
+// 事务
+func transaction() {
+	tx, err := db.Begin()
+	if err != nil {
+		log.Println("开启事务失败, err:", err)
+		return
+	}
+	sqlStr1 := `update student set sex = "女" where id = ?`
+	ret1, err := tx.Exec(sqlStr1, 1)
+	if err != nil {
+		log.Print("sqlStr1 失败, err: ", err)
+		return
+	}
+	affRow1, err := ret1.RowsAffected()
+	if err != nil {
+		tx.Rollback() // 回滚
+		fmt.Printf("exec ret1.RowsAffected() failed, err:%v\n", err)
+		return
+	}
+
+	sqlStr2 := `update student set sex="女" where id = ?`
+	ret2, err := tx.Exec(sqlStr2, 2)
+	if err != nil {
+		log.Println("sqlStr2 失败, err:", err)
+		return
+	}
+	affRow2, err := ret2.RowsAffected()
+	if err != nil {
+		fmt.Printf("exec ret2.RowsAffected() failed, err:%v\n", err)
+		return
+	}
+	fmt.Println(affRow1, affRow2)
+	tx.Commit()
+
+}
 
 func main() {
 	err := initDB()
@@ -142,8 +177,9 @@ func main() {
 	fmt.Println("数据库连接成功")
 	//queryRow(1)
 	//insertRow("刘环宇", "计算机一班", "男")
-	updateRow("nan", 7)
+	//updateRow("nan", 7)
 	//deleteRow(2)
 	//prepareRow()
+	transaction()
 	queryMultiRows(0)
 }
