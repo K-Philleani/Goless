@@ -23,3 +23,16 @@ func AddPerson(c *gin.Context) {
 		"msg": msg,
 	})
 }
+
+func GetPerson(c *gin.Context) {
+	var p model.Person
+	persons, err := p.GetPerson()
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	c.JSON(200, gin.H{
+		"code": 1,
+		"persons": persons,
+	})
+}

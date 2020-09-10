@@ -10,5 +10,6 @@ func initRouter() *gin.Engine {
 
 	router.GET("/add_person", apis.AddPerson)
 
+	router.GET("/get_person", apis.GetPerson)
 	return router
 }

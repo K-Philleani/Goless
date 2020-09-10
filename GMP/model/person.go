@@ -21,3 +21,22 @@ func (p *Person) AddPerson() (id int64, err error) {
 	return
 }
 
+func (p *Person) GetPerson() (persons []Person, err error){
+	sqlStr := "select id, first_name, last_name from person"
+	rows, err := db.SqlDB.Query(sqlStr)
+	if err != nil {
+		return
+	}
+	defer rows.Close()
+	persons = make([]Person, 0)
+	for rows.Next() {
+		var person Person
+		rows.Scan(&person.Id, &person.FirstName, &person.LastName)
+		persons = append(persons, person)
+	}
+	if err = rows.Err(); err != nil {
+		return
+	}
+	return
+}
+
