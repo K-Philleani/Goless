@@ -1,7 +1,7 @@
 package setInit
 
 import (
-	"Goless/gin/testAction/handler"
+	"Goless/gin_first/testAction/handler"
 	"github.com/gin-gonic/gin"
 )
 

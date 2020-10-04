@@ -1,7 +1,7 @@
 package main
 
 import (
-	db "Goless/GMP/database"
+	db "Goless/go_mysql/database"
 )
 func main() {
 	defer db.SqlDB.Close()

@@ -1,7 +1,7 @@
 package test
 
 import (
-	"Goless/gin/testAction/setInit"
+	"Goless/gin_first/testAction/setInit"
 	"bytes"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/assert/v2"

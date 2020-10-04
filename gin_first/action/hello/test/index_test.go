@@ -1,7 +1,7 @@
 package test
 
 import (
-	"Goless/gin/action/hello/initRouter"
+	"Goless/gin_first/action/hello/initRouter"
 	"github.com/go-playground/assert/v2"
 	"net/http"
 	"net/http/httptest"

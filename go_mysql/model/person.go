@@ -1,6 +1,6 @@
 package model
 
-import db "Goless/GMP/database"
+import db "Goless/go_mysql/database"
 
 type Person struct {
 	Id    		int 	`json:"id" form:"id"`
@@ -8,6 +8,7 @@ type Person struct {
 	LastName 	string 	`json:"last_name" form:"last_name"`
 }
 
+// 新增数据
 func (p *Person) AddPerson() (id int64, err error) {
 	sqlStr := "insert into person (first_name, last_name) values(?, ?)"
 	rs, err := db.SqlDB.Exec(sqlStr, p.FirstName, p.LastName)
@@ -21,6 +22,7 @@ func (p *Person) AddPerson() (id int64, err error) {
 	return
 }
 
+// 获取全部数据
 func (p *Person) GetPerson() (persons []Person, err error){
 	sqlStr := "select id, first_name, last_name from person"
 	rows, err := db.SqlDB.Query(sqlStr)
@@ -40,3 +42,10 @@ func (p *Person) GetPerson() (persons []Person, err error){
 	return
 }
 
+// 获取单条数据
+func (p *Person) GetPersonOne() (person Person, err error){
+	sqlStr := "select id, first_name, last_name from person where id = ?"
+	db.SqlDB.QueryRow(sqlStr, p.Id).Scan(
+		&person.Id, &person.FirstName, &person.LastName)
+	return
+}

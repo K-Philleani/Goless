@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"Goless/gin/testAction/model"
+	"Goless/gin_first/testAction/model"
 	"github.com/gin-gonic/gin"
 	"log"
 	"strings"

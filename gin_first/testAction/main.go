@@ -1,8 +1,8 @@
 package main
 
 import (
-	"Goless/gin/testAction/initDB"
-	"Goless/gin/testAction/setInit"
+	"Goless/gin_first/testAction/initDB"
+	"Goless/gin_first/testAction/setInit"
 )
 
 func main() {

@@ -1,7 +1,7 @@
 package model
 
 import (
-	"Goless/gin/testAction/initDB"
+	"Goless/gin_first/testAction/initDB"
 	"log"
 )
 

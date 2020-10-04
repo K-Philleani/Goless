@@ -1,10 +1,11 @@
 package apis
 
 import (
-	"Goless/GMP/model"
+	"Goless/go_mysql/model"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
+	"strconv"
 )
 
 func AddPerson(c *gin.Context) {
@@ -34,5 +35,24 @@ func GetPerson(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"code": 1,
 		"persons": persons,
+	})
+}
+
+func GetPersonOne(c *gin.Context) {
+	id, err := strconv.Atoi(c.Query("id"))
+	if err != nil {
+		log.Println(id)
+		return
+	}
+
+	p := model.Person{Id: id}
+	person, err := p.GetPersonOne()
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	c.JSON(200, gin.H{
+		"code": 1,
+		"person": person,
 	})
 }
